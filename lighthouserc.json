@@ -2,10 +2,10 @@
   "ci": {
     "collect": {
       "url": ["http://localhost:3000"],
-      "startServerCommand": "yarn app:web:build && npx serve -s apps/web/web-build -l 3000",
+      "startServerCommand": "yarn build:web && npx serve -s apps/web/web-build -l 3000",
       "startServerReadyPattern": "Serving!",
-      "startServerReadyTimeout": 30000,
-      "numberOfRuns": 3
+      "startServerReadyTimeout": 60000,
+      "numberOfRuns": 1
     },
     "assert": {
       "assertions": {

@@ -52,7 +52,7 @@
     "test:performance:ci": "node scripts/performance-monitor.js http://localhost:3000 5",
     "test:memory": "node scripts/memory-test.js",
     "test:memory:ci": "node scripts/memory-test.js http://localhost:3000",
-    "test:accessibility": "npx axe-core --exit --dir test-results/accessibility",
+    "test:accessibility": "node scripts/accessibility-test.js",
     "test:fluency": "yarn test:performance && yarn test:memory && yarn test:interaction",
     "test:fluency:ci": "yarn test:performance:ci && yarn test:memory:ci && yarn test:interaction",
     "test:all": "yarn test && yarn test:fluency && yarn test:accessibility",
@@ -62,7 +62,8 @@
     "build:ext": "cross-env NODE_ENV=production yarn workspace @onekeyhq/ext build:v3",
     "build:desktop": "cross-env NODE_ENV=production yarn workspace @onekeyhq/desktop build:main",
     "test:build": "node scripts/test-build.js",
-    "fix:build": "node scripts/fix-build-issues.js"
+    "fix:build": "node scripts/fix-build-issues.js",
+    "install:test-deps": "yarn add -D puppeteer axe-core lighthouse"
   },
   "dependencies": {
     "@aivenio/tsc-output-parser": "^2.1.1",

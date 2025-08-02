@@ -279,6 +279,43 @@ strategy:
    yarn clean:cache
    ```
 
+6. **服务器启动超时**
+   ```bash
+   # 检查服务器状态
+   ps aux | grep serve
+   
+   # 手动启动服务器测试
+   yarn build:web
+   npx serve -s apps/web/web-build -l 3000
+   
+   # 检查端口占用
+   netstat -tulpn | grep 3000
+   ```
+
+7. **Lighthouse收集失败**
+   ```bash
+   # 确保服务器正在运行
+   curl http://localhost:3000
+   
+   # 手动运行Lighthouse
+   npx lighthouse http://localhost:3000 --output=json
+   
+   # 检查Lighthouse配置
+   cat lighthouserc.json
+   ```
+
+8. **可访问性测试失败**
+   ```bash
+   # 安装测试依赖
+   yarn install:test-deps
+   
+   # 运行可访问性测试
+   yarn test:accessibility
+   
+   # 检查axe-core是否正确安装
+   node -e "console.log(require.resolve('axe-core/axe.min.js'))"
+   ```
+
 ### 调试模式
 
 ```bash

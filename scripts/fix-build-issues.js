@@ -13,7 +13,8 @@ function installDependencies() {
     { name: 'cross-env', global: true },
     { name: 'serve', global: true },
     { name: 'puppeteer', local: true },
-    { name: 'lighthouse', local: true }
+    { name: 'lighthouse', local: true },
+    { name: 'axe-core', local: true }
   ];
 
   for (const dep of dependencies) {
@@ -114,11 +115,36 @@ async function main() {
     testBuild();
     console.log('');
     
+    // 测试服务器启动
+    console.log('🌐 Testing server startup...');
+    try {
+      execSync('yarn build:web', { stdio: 'inherit' });
+      console.log('✅ Web build completed');
+      
+      // 测试服务器启动
+      execSync('npx serve -s apps/web/web-build -l 3000 > server.log 2>&1 &', { stdio: 'inherit' });
+      console.log('✅ Server started');
+      
+      // 等待服务器启动
+      setTimeout(() => {
+        try {
+          execSync('curl -s http://localhost:3000 > /dev/null', { stdio: 'pipe' });
+          console.log('✅ Server is responding');
+        } catch (error) {
+          console.log('⚠️  Server not responding yet');
+        }
+      }, 5000);
+      
+    } catch (error) {
+      console.log('❌ Server test failed:', error.message);
+    }
+    
     console.log('🎉 Build issue fix completed!');
     console.log('\nNext steps:');
     console.log('1. Try running: yarn build:web');
-    console.log('2. If issues persist, check the error messages above');
-    console.log('3. For CI/CD issues, ensure all dependencies are properly installed');
+    console.log('2. Test server: npx serve -s apps/web/web-build -l 3000');
+    console.log('3. Run tests: yarn test:accessibility');
+    console.log('4. For CI/CD issues, ensure all dependencies are properly installed');
     
   } catch (error) {
     console.error('❌ Build issue fix failed:', error.message);
