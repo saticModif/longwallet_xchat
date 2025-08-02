@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "scheme": "onekey-wallet",
+    "name": "OneKey Wallet",
+    "slug": "OneKey-Wallet",
+    "owner": "onekeyhq",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "so.onekey.wallet",
+      "associatedDomains": [
+        "applinks:1key.so"
+      ]
+    },
+    "android": {
+      "googleServicesFile": "./android/app/google-services.json",
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.CAMERA",
+        "android.permission.VIDEO_CAPTURE",
+        "android.permission.AUDIO_CAPTURE",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.BLUETOOTH_CONNECT"
+      ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "640c3c38-d160-48c3-b4a3-40d4fc8aeb08"
+      }
+    },
+    "plugins": [
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "react-native",
+          "organization": "onekey-bb"
+        }
+      ]
+    ]
+  }
+}
