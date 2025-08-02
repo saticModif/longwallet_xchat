@@ -50,8 +50,14 @@
     "test:interaction": "yarn jest --testPathPattern=interaction.test",
     "test:performance": "node scripts/performance-monitor.js",
     "test:performance:ci": "node scripts/performance-monitor.js http://localhost:3000 5",
+    "test:memory": "node scripts/memory-test.js",
+    "test:memory:ci": "node scripts/memory-test.js http://localhost:3000",
     "test:accessibility": "npx axe-core --exit --dir test-results/accessibility",
-    "test:all": "yarn test && yarn test:interaction && yarn test:performance"
+    "test:fluency": "yarn test:performance && yarn test:memory && yarn test:interaction",
+    "test:fluency:ci": "yarn test:performance:ci && yarn test:memory:ci && yarn test:interaction",
+    "test:all": "yarn test && yarn test:fluency && yarn test:accessibility",
+    "report:performance": "node scripts/generate-performance-summary.js",
+    "report:comprehensive": "node scripts/generate-comprehensive-report.js"
   },
   "dependencies": {
     "@aivenio/tsc-output-parser": "^2.1.1",
