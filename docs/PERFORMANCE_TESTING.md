@@ -235,24 +235,48 @@ strategy:
 
 ### 常见问题
 
-1. **Puppeteer启动失败**
+1. **cross-env命令未找到**
+   ```bash
+   # 全局安装cross-env
+   npm install -g cross-env
+   
+   # 或者本地安装
+   yarn add -D cross-env
+   
+   # 测试构建
+   yarn test:build
+   ```
+
+2. **Puppeteer启动失败**
    ```bash
    # 安装系统依赖
    sudo apt-get update
    sudo apt-get install -y libgbm-dev libxss1 libnss3
    ```
 
-2. **内存测试超时**
+3. **内存测试超时**
    ```bash
    # 增加超时时间
    node scripts/memory-test.js http://localhost:3000 --timeout 60000
    ```
 
-3. **Lighthouse测试失败**
+4. **Lighthouse测试失败**
    ```bash
    # 确保服务器正在运行
-   yarn app:web:build
+   yarn build:web
    npx serve -s apps/web/web-build -l 3000
+   ```
+
+5. **构建失败**
+   ```bash
+   # 运行构建测试
+   yarn test:build
+   
+   # 检查依赖
+   yarn install --frozen-lockfile
+   
+   # 清理缓存
+   yarn clean:cache
    ```
 
 ### 调试模式

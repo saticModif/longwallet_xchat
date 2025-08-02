@@ -57,7 +57,12 @@
     "test:fluency:ci": "yarn test:performance:ci && yarn test:memory:ci && yarn test:interaction",
     "test:all": "yarn test && yarn test:fluency && yarn test:accessibility",
     "report:performance": "node scripts/generate-performance-summary.js",
-    "report:comprehensive": "node scripts/generate-comprehensive-report.js"
+    "report:comprehensive": "node scripts/generate-comprehensive-report.js",
+    "build:web": "cross-env NODE_ENV=production yarn workspace @onekeyhq/web build",
+    "build:ext": "cross-env NODE_ENV=production yarn workspace @onekeyhq/ext build:v3",
+    "build:desktop": "cross-env NODE_ENV=production yarn workspace @onekeyhq/desktop build:main",
+    "test:build": "node scripts/test-build.js",
+    "fix:build": "node scripts/fix-build-issues.js"
   },
   "dependencies": {
     "@aivenio/tsc-output-parser": "^2.1.1",

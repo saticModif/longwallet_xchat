@@ -67,27 +67,33 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: Install global dependencies
+        run: |
+          npm install -g cross-env serve
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Test build process
+        run: yarn test:build
+
       - name: Build application
         run: |
           if [ "${{ matrix.app }}" = "web" ]; then
-            yarn app:web:build
+            yarn build:web
           elif [ "${{ matrix.app }}" = "ext" ]; then
-            yarn app:ext:build
+            yarn build:ext
           elif [ "${{ matrix.app }}" = "desktop" ]; then
-            yarn workspace @onekeyhq/desktop build
+            yarn build:desktop
           fi
 
       - name: Start application server
         run: |
           if [ "${{ matrix.app }}" = "web" ]; then
-            yarn app:web:build
             npx serve -s apps/web/web-build -l 3000 &
           elif [ "${{ matrix.app }}" = "ext" ]; then
-            yarn app:ext:build
             npx serve -s apps/ext/dist -l 3000 &
           else
             echo "Desktop app testing requires different setup"
@@ -95,6 +101,7 @@ jobs:
           fi
         env:
           CI: true
+          NODE_ENV: production
 
       - name: Wait for server to start
         run: |
@@ -161,11 +168,15 @@ jobs:
           node-version: ${{ needs.setup.outputs.node-version }}
           cache: 'yarn'
 
+      - name: Install global dependencies
+        run: |
+          npm install -g cross-env serve
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Build web application
-        run: yarn app:web:build
+        run: yarn build:web
 
       - name: Start web server
         run: |
@@ -196,13 +207,17 @@ jobs:
           node-version: ${{ needs.setup.outputs.node-version }}
           cache: 'yarn'
 
+      - name: Install global dependencies
+        run: |
+          npm install -g cross-env serve
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Analyze bundle size
         run: |
-          yarn workspace @onekeyhq/web build --analyze
-          yarn workspace @onekeyhq/ext build:v3 --analyze
+          yarn build:web
+          yarn build:ext
 
       - name: Upload bundle analysis
         uses: actions/upload-artifact@v4
@@ -228,11 +243,15 @@ jobs:
           node-version: ${{ needs.setup.outputs.node-version }}
           cache: 'yarn'
 
+      - name: Install global dependencies
+        run: |
+          npm install -g cross-env serve
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Build web application
-        run: yarn app:web:build
+        run: yarn build:web
 
       - name: Start web server
         run: |
